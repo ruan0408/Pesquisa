@@ -14,7 +14,7 @@ public class Area {
 
     @Id
     @GeneratedValue
-    private String id;
+    private Integer id;
     private String nome;
 
     public String getNome() {
@@ -25,11 +25,11 @@ public class Area {
         this.nome = nome;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

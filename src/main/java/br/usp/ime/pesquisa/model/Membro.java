@@ -15,10 +15,18 @@ public class Membro implements Serializable {
 
     @Id
     @GeneratedValue
-    private String id;
+    private Integer id;
 
     private String nome;
     private int nusp;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -34,13 +42,5 @@ public class Membro implements Serializable {
 
     public void setNusp(int nusp) {
         this.nusp = nusp;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }
