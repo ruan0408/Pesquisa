@@ -12,4 +12,5 @@ import javax.ejb.Remote;
 public interface Pesquisa {
 
     void salvarMembro(Membro membro);
+    void removerMembro(Membro membro);
 }

@@ -19,4 +19,9 @@ public class PesquisaBean implements Pesquisa {
     public void salvarMembro(Membro membro) {
         daoPesquisa.salvarMembro(membro);
     }
+
+    @Override
+    public void removerMembro(Membro membro) {
+        daoPesquisa.removerMembro(membro);
+    }
 }

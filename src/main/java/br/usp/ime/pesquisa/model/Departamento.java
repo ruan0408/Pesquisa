@@ -1,28 +1,32 @@
 package br.usp.ime.pesquisa.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ruan0408 on 6/04/2016.
  */
 @Entity
-@Table(name = "ALUNO")
-public class Departamento {
+@Table(name = "DEPARTAMENTO")
+public class Departamento implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private int id;
 
     private String nome;
 
-    public Integer getId() {
+    @OneToMany(mappedBy = "departamento")
+    private List<Area> areas = new ArrayList<>();
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

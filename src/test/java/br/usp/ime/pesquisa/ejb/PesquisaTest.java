@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 
 /**
@@ -12,21 +13,30 @@ import javax.naming.InitialContext;
  */
 public class PesquisaTest {
 
-    private static InitialContext context;
+    private static Pesquisa pesquisa;
 
     @BeforeClass
     public static void setUp() throws Exception {
-        context = new InitialContext();
+        InitialContext context = new InitialContext();
+        pesquisa = (Pesquisa) context.lookup("java:global/pesquisa/PesquisaBean");
     }
 
-    @Ignore
-    @Test
-    public void testSalvarMembro() throws Exception {
-        Pesquisa p = (Pesquisa)context.lookup("java:global/pesquisa_ejb/PesquisaBean");
+    @Test(expected = EJBException.class)
+    public void testSalvarMembroRepetido() throws Exception {
         Membro carlinhos = new Membro();
         carlinhos.setNome("Carlos Eduardo Ferreira");
         carlinhos.setNusp(91228);
 
-        p.salvarMembro(carlinhos);
+        pesquisa.salvarMembro(carlinhos);
+    }
+
+    @Ignore
+    @Test
+    public void testRemoverMembro() {
+        Membro carlinhos = new Membro();
+        carlinhos.setNome("Carlos Eduardo Ferreira");
+        carlinhos.setNusp(91228);
+
+        pesquisa.removerMembro(carlinhos);
     }
 }
