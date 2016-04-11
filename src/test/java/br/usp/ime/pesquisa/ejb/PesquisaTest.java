@@ -1,5 +1,6 @@
 package br.usp.ime.pesquisa.ejb;
 
+import br.usp.ime.pesquisa.model.Departamento;
 import br.usp.ime.pesquisa.model.Membro;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -7,6 +8,7 @@ import org.junit.Test;
 
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
+import java.util.List;
 
 /**
  * Created by ruan0408 on 7/04/2016.
@@ -21,6 +23,7 @@ public class PesquisaTest {
         pesquisa = (Pesquisa) context.lookup("java:global/pesquisa/PesquisaBean");
     }
 
+    @Ignore
     @Test(expected = EJBException.class)
     public void testSalvarMembroRepetido() throws Exception {
         Membro carlinhos = new Membro();
@@ -38,5 +41,21 @@ public class PesquisaTest {
         carlinhos.setNusp(91228);
 
         pesquisa.removerMembro(carlinhos);
+    }
+
+    @Ignore
+    @Test
+    public void testSalvarDepartamento() {
+        Departamento dcc = new Departamento();
+        dcc.setNome("Ciência da Computação");
+
+        pesquisa.salvarDepartamento(dcc);
+    }
+
+    @Test
+    public void testBuscarDepartamentos() {
+        List<Departamento> departamentos = pesquisa.buscarDepartamentos();
+        for (Departamento departamento : departamentos)
+            System.out.println(departamento);
     }
 }
