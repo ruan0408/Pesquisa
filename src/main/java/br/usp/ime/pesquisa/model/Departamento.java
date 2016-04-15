@@ -22,6 +22,13 @@ public class Departamento implements Serializable {
     @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Area> areas = new ArrayList<>();
 
+    public Departamento() {}
+
+    public Departamento(String nome) {
+        this.nome = nome;
+    }
+
+
     public int getId() {
         return id;
     }

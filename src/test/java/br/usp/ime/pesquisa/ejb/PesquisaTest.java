@@ -43,13 +43,12 @@ public class PesquisaTest {
         pesquisa.removerMembro(carlinhos);
     }
 
-    @Ignore
     @Test
-    public void testSalvarDepartamento() {
-        Departamento dcc = new Departamento();
-        dcc.setNome("Ciência da Computação");
-
-        pesquisa.salvarDepartamento(dcc);
+    public void testSalvarDepartamentos() {
+        pesquisa.salvarDepartamento(new Departamento("Ciência da Computação"));
+        pesquisa.salvarDepartamento(new Departamento("Estatística"));
+        pesquisa.salvarDepartamento(new Departamento("Matemática"));
+        pesquisa.salvarDepartamento(new Departamento("Matemática Aplicada"));
     }
 
     @Test

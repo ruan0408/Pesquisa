@@ -2,6 +2,7 @@ package br.usp.ime.pesquisa.ejb;
 
 import br.usp.ime.pesquisa.model.Area;
 import br.usp.ime.pesquisa.model.Departamento;
+import br.usp.ime.pesquisa.model.LinhaPesquisa;
 import br.usp.ime.pesquisa.model.Membro;
 
 import javax.ejb.EJB;
@@ -42,4 +43,5 @@ public class PesquisaBean implements Pesquisa {
     public void salvarDepartamento(Departamento departamento) {
         daoPesquisa.salvarDepartamento(departamento);
     }
+
 }

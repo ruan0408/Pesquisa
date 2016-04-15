@@ -18,6 +18,8 @@ public class LinhaPesquisa implements Serializable {
     private int id;
 
     private String nome;
+
+    @Column(columnDefinition = "TEXT")
     private String descricao;
 
     @ManyToOne

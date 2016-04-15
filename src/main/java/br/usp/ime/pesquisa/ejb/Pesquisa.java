@@ -21,4 +21,5 @@ public interface Pesquisa {
     List<Area> buscarAreas(Departamento departamento);
 
     void salvarDepartamento(Departamento departamento);
+
 }
