@@ -1,6 +1,8 @@
 package br.usp.ime.pesquisa.ejb;
 
+import br.usp.ime.pesquisa.model.Area;
 import br.usp.ime.pesquisa.model.Departamento;
+import br.usp.ime.pesquisa.model.LinhaPesquisa;
 import br.usp.ime.pesquisa.model.Membro;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -9,6 +11,8 @@ import org.junit.Test;
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by ruan0408 on 7/04/2016.
@@ -43,6 +47,7 @@ public class PesquisaTest {
         pesquisa.removerMembro(carlinhos);
     }
 
+    @Ignore
     @Test
     public void testSalvarDepartamentos() {
         pesquisa.salvarDepartamento(new Departamento("Ciência da Computação"));
@@ -54,7 +59,32 @@ public class PesquisaTest {
     @Test
     public void testBuscarDepartamentos() {
         List<Departamento> departamentos = pesquisa.buscarDepartamentos();
-        for (Departamento departamento : departamentos)
-            System.out.println(departamento);
+        assertEquals(4, departamentos.size());
+    }
+
+    @Test
+    public void testBuscarDepartamentosPorNome() {
+        Departamento dcc = pesquisa.buscarDepartamentoPorNome("Ciência da Computação");
+        assertEquals("Ciência da Computação", dcc.getNome());
+        assertEquals(7, dcc.getAreas().size());
+    }
+
+    @Test
+    public void testBuscarAreasPorNome() throws Exception {
+        Area sistemas = pesquisa.buscarAreaPorNome("Sistemas de Software");
+        assertEquals("Sistemas de Software", sistemas.getNome());
+        assertEquals(10, sistemas.getLinhasPesquisa().size());
+    }
+
+    @Test
+    public void testBuscarLinhaPesquisaPorNome() throws Exception {
+        LinhaPesquisa redes = pesquisa.buscarLinhaPesquisaPorNome("Redes de Computadores");
+        assertEquals("Redes de Computadores", redes.getNome());
+
+        for (Membro membro : redes.getMembros()) {
+            assertTrue(membro.getNome().equals("Manoel Marcilio Sanches") ||
+                    membro.getNome().equals("Daniel Macedo Batista"));
+        }
+
     }
 }

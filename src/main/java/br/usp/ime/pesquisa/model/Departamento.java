@@ -17,6 +17,7 @@ public class Departamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(unique = true)
     private String nome;
 
     @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -45,6 +46,14 @@ public class Departamento implements Serializable {
         this.nome = nome;
     }
 
+    public List<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,17 +61,17 @@ public class Departamento implements Serializable {
 
         Departamento that = (Departamento) o;
 
-        if (id != that.id) return false;
-        if (!nome.equals(that.nome)) return false;
-        return areas.equals(that.areas);
+        if (getId() != that.getId()) return false;
+        if (!getNome().equals(that.getNome())) return false;
+        return getAreas() != null ? getAreas().equals(that.getAreas()) : that.getAreas() == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + nome.hashCode();
-        result = 31 * result + areas.hashCode();
+        int result = getId();
+        result = 31 * result + getNome().hashCode();
+        result = 31 * result + (getAreas() != null ? getAreas().hashCode() : 0);
         return result;
     }
 

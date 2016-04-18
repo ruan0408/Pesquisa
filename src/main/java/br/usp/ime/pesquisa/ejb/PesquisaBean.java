@@ -35,13 +35,20 @@ public class PesquisaBean implements Pesquisa {
     }
 
     @Override
-    public List<Area> buscarAreas(Departamento departamento) {
-        return daoPesquisa.buscarAreas(departamento);
-    }
+    public Departamento buscarDepartamentoPorNome(String nome) { return daoPesquisa.buscarDepartamentoPorNome(nome); }
 
     @Override
     public void salvarDepartamento(Departamento departamento) {
         daoPesquisa.salvarDepartamento(departamento);
     }
 
+    @Override
+    public Area buscarAreaPorNome(String nome) {
+        return daoPesquisa.buscarAreaPorNome(nome);
+    }
+
+    @Override
+    public LinhaPesquisa buscarLinhaPesquisaPorNome(String nome) {
+        return daoPesquisa.buscarLinhaPesquisaPorNome(nome);
+    }
 }

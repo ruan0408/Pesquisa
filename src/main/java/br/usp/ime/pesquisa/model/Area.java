@@ -19,12 +19,11 @@ public class Area implements Serializable {
 
     private String nome;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Departamento departamento;
 
-    @OneToMany(mappedBy = "area")
+    @OneToMany(mappedBy = "area", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<LinhaPesquisa> linhasPesquisa = new ArrayList<>();
-
 
 
     public String getNome() {
@@ -41,5 +40,54 @@ public class Area implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    public List<LinhaPesquisa> getLinhasPesquisa() {
+        return linhasPesquisa;
+    }
+
+    public void setLinhasPesquisa(List<LinhaPesquisa> linhasPesquisa) {
+        this.linhasPesquisa = linhasPesquisa;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Area area = (Area) o;
+
+        if (getId() != area.getId()) return false;
+        if (!getNome().equals(area.getNome())) return false;
+        if (!getDepartamento().equals(area.getDepartamento())) return false;
+        return getLinhasPesquisa() != null ? getLinhasPesquisa().equals(area.getLinhasPesquisa()) : area.getLinhasPesquisa() == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + getNome().hashCode();
+        result = 31 * result + getDepartamento().hashCode();
+        result = 31 * result + (getLinhasPesquisa() != null ? getLinhasPesquisa().hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Area{");
+        sb.append("id=").append(id);
+        sb.append(", nome='").append(nome).append('\'');
+        sb.append(", linhasPesquisa=").append(linhasPesquisa);
+        sb.append('}');
+        return sb.toString();
     }
 }
