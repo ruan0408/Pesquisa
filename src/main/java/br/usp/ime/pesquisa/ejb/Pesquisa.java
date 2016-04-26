@@ -23,6 +23,8 @@ public interface Pesquisa {
     void salvarDepartamento(Departamento departamento);
 
     Area buscarAreaPorNome(String nome);
+    void salvarArea(Area area);
+    void removerArea(Area area);
 
     LinhaPesquisa buscarLinhaPesquisaPorNome(String nome);
 

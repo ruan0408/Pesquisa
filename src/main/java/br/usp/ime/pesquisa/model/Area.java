@@ -15,48 +15,37 @@ public class Area implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String nome;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
     private Departamento departamento;
 
     @OneToMany(mappedBy = "area", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<LinhaPesquisa> linhasPesquisa = new ArrayList<>();
 
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
-    }
+    public Departamento getDepartamento() { return departamento; }
+    public void setDepartamento(Departamento departamento) { this.departamento = departamento; }
 
-    public List<LinhaPesquisa> getLinhasPesquisa() {
-        return linhasPesquisa;
-    }
-
-    public void setLinhasPesquisa(List<LinhaPesquisa> linhasPesquisa) {
-        this.linhasPesquisa = linhasPesquisa;
-    }
+    public List<LinhaPesquisa> getLinhasPesquisa() {return linhasPesquisa;}
+    public void setLinhasPesquisa(List<LinhaPesquisa> linhasPesquisa) {this.linhasPesquisa = linhasPesquisa;}
 
     @Override
     public boolean equals(Object o) {
@@ -65,16 +54,16 @@ public class Area implements Serializable {
 
         Area area = (Area) o;
 
-        if (getId() != area.getId()) return false;
+        if (!getId().equals(area.getId())) return false;
         if (!getNome().equals(area.getNome())) return false;
         if (!getDepartamento().equals(area.getDepartamento())) return false;
         return getLinhasPesquisa() != null ? getLinhasPesquisa().equals(area.getLinhasPesquisa()) : area.getLinhasPesquisa() == null;
-
+//        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = getId();
+        int result = getId().hashCode();
         result = 31 * result + getNome().hashCode();
         result = 31 * result + getDepartamento().hashCode();
         result = 31 * result + (getLinhasPesquisa() != null ? getLinhasPesquisa().hashCode() : 0);

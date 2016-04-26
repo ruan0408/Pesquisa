@@ -5,6 +5,7 @@ import br.usp.ime.pesquisa.model.Departamento;
 import br.usp.ime.pesquisa.model.LinhaPesquisa;
 import br.usp.ime.pesquisa.model.Membro;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,10 +17,11 @@ import java.util.List;
  */
 
 @Stateless
+@Local
 public class DaoPesquisa {
 
     @PersistenceContext(unitName = "pesquisa")
-    EntityManager emPesquisa;
+    private EntityManager emPesquisa;
 
     public void salvarMembro(Membro membro) { salvar(membro); }
 
@@ -48,6 +50,9 @@ public class DaoPesquisa {
         return (Area) query.getSingleResult();
     }
 
+    public void salvarArea(Area area) { salvar(area); }
+    public void removerArea(Area area) { remover(area); }
+
     public LinhaPesquisa buscarLinhaPesquisaPorNome(String nome) {
         String q = "SELECT l FROM LinhaPesquisa l WHERE l.nome LIKE :nome";
         Query query = emPesquisa.createQuery(q).setParameter("nome", nome);
@@ -57,21 +62,10 @@ public class DaoPesquisa {
 
 
     public Object salvar(Object o) {
-        try {
-            o = emPesquisa.merge(o);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return o;
+        return emPesquisa.merge(o);
     }
 
-    public Object remover(Object o) {
-        try {
-//            o = emPesquisa.merge(o);
-            emPesquisa.remove(o);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return o;
+    public void remover(Object o) {
+        emPesquisa.remove(emPesquisa.merge(o));
     }
 }
